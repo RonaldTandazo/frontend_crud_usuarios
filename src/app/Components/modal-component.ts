@@ -39,10 +39,12 @@ export class UserModalComponent implements OnInit {
 
   onSubmit(): void {
     if(!this.isEditing){
+      console.log("llega aqui la wbd")
       this.usuarioService.store(this.user).subscribe(response => {
         alert(response.data);
       });
     }else{
+      console.log("llega aca la wbd")
       this.usuarioService.update(this.user.id, this.user).subscribe(response => {
         alert(response.data);
       });

@@ -1,7 +1,7 @@
 <mat-dialog-content>
   <h2 *ngIf="isEditing">Editar Usuario</h2>
   <h2 *ngIf="!isEditing">Crear Usuario</h2>
-  <form (ngSubmit)="onSubmit()" class="form-container">
+  <form class="form-container">
     <!-- Fila 1: Departamento y Cargo -->
     <div class="form-row">
       <mat-form-field appearance="fill" class="form-field">
@@ -64,7 +64,7 @@
 
     <!-- Botones -->
     <div class="button-group">
-      <button mat-raised-button type="submit">{{ isEditing ? 'Actualizar' : 'Registrar' }}</button>
+      <button mat-raised-button (click)="onSubmit()">{{ isEditing ? 'Actualizar' : 'Registrar' }}</button>
       <button mat-raised-button (click)="onCancel()">Cancelar</button>
     </div>
   </form>

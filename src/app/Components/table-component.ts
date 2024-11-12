@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UsuariosServices } from '../services/usuarios.services';
 
 export interface PeriodicElement {
+  id: number;
   usuario: string;
   primer_nombre: string;
   segundo_nombre: string;
@@ -30,7 +31,10 @@ export class TableComponent implements OnInit{
   displayedColumns: string[] = ['usuario', 'nombres', 'apellidos', 'departamento', 'cargo', 'email', 'acciones'];
   dataSource: PeriodicElement[] = [];
 
-  constructor(private dialog: MatDialog, private usuariosService: UsuariosServices) {}
+  constructor(
+    private dialog: MatDialog, 
+    private usuariosService: UsuariosServices
+  ) {}
 
   ngOnInit(): void {
     this.usuariosService.getData().subscribe(
@@ -55,7 +59,9 @@ export class TableComponent implements OnInit{
     });
   }
 
-  deleteRow(element: PeriodicElement) {
-    console.log('Eliminar', element);
+  deleteUser(id_usuario: number, user: any) {
+    this.usuariosService.delete(id_usuario, user).subscribe(response => {
+      alert(response.data);
+    });
   }
 }

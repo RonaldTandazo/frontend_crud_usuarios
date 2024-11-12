@@ -20,11 +20,11 @@ export class UsuariosServices {
     return this.http.post<any>(`${this.apiUrl}/usuarios/store`, userData);
   }
 
-  update(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/usuarios/update`, userData);
+  update(id_usuario: number, userData: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/usuarios/update/${id_usuario}`, userData);
   }
 
-  delete(userData: any): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/usuarios/delete`, userData);
+  delete(id_usuario: number, userData: any): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/usuarios/delete/${id_usuario}`, userData);
   }
 }

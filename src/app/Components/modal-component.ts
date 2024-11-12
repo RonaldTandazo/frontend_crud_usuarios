@@ -38,10 +38,20 @@ export class UserModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.usuarioService.store(this.user).subscribe(response => {
-      console.log('Usuario creado', response);
-    });
+    if(!this.isEditing){
+      this.usuarioService.store(this.user).subscribe(response => {
+        alert(response.data);
+      });
+    }else{
+      this.usuarioService.update(this.user.id, this.user).subscribe(response => {
+        alert(response.data);
+      });
+    }
 
-    this.dialogRef.close(this.user);
+    this.dialogRef.close();
+  }
+
+  onCancel(): void {
+    this.dialogRef.close();
   }
 }

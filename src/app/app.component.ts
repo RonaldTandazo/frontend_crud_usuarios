@@ -64,7 +64,7 @@ export class AppComponent implements OnInit{
   }
 
   openUserModal(isEditing: boolean, user?: any) {
-    const dialogRef = this.dialog.open(UserModalComponent, {
+    this.dialog.open(UserModalComponent, {
       data: {
         user: user,
         isEditing: isEditing,
@@ -73,10 +73,10 @@ export class AppComponent implements OnInit{
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log('Usuario guardado o editado:', result);
-      }
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   if (result) {
+    //     console.log('Usuario guardado o editado:', result);
+    //   }
+    // });
   }
 }

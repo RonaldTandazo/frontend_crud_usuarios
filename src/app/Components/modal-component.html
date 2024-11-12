@@ -6,19 +6,19 @@
     <div class="form-row">
       <mat-form-field appearance="fill" class="form-field">
         <mat-label>Departamento</mat-label>
-        <mat-select [(value)]="user.departamento">
-          <mat-option *ngFor="let depto of departamentos" [value]="depto.value">
-            {{ depto.label }}
-          </mat-option>
+        <mat-select [(value)]="user.id_departamento">
+          @for (departamento of departamentos; track departamento) {
+            <mat-option [value]="departamento.value">{{departamento.label}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="form-field">
         <mat-label>Cargo</mat-label>
-        <mat-select [(value)]="user.cargo">
-          <mat-option *ngFor="let cargo of cargos" [value]="cargo.value">
-            {{ cargo.label }}
-          </mat-option>
+        <mat-select [(value)]="user.id_cargo">
+          @for (cargo of cargos; track cargo) {
+            <mat-option [value]="cargo.value">{{cargo.label}}</mat-option>
+          }
         </mat-select>
       </mat-form-field>
     </div>
@@ -65,7 +65,7 @@
     <!-- Botones -->
     <div class="button-group">
       <button mat-raised-button type="submit">{{ isEditing ? 'Actualizar' : 'Registrar' }}</button>
-      <button mat-raised-button (click)="dialogRef.close()">Cancelar</button>
+      <button mat-raised-button (click)="onCancel()">Cancelar</button>
     </div>
   </form>
 </mat-dialog-content>

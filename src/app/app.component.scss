@@ -1,0 +1,36 @@
+.header{
+  margin: 16px 16px 0px 16px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.select-container {
+  display: flex;
+  gap: 16px;
+}
+
+.select-item{
+  width: 300px;
+}
+
+.right-button {
+  margin-left: auto;
+}
+
+.custom-divider {
+  margin: 16px 0;
+}
+
+.table-wrapper {
+  margin: 30px auto;
+  padding: 0 16px;
+}
+
+.btns-container {
+  display: flex;
+  gap: 16px;
+}

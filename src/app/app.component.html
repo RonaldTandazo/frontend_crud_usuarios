@@ -1,35 +1,56 @@
 <main class="main">
   <div class="content">
-    <p>Módulo de Administración de Usuarios</p>
-    <h5>Administración de Usuarios</h5>
-    <div class="select-container">
-      <mat-form-field class="select-item">
-        <mat-label>Seleccione un Departamento</mat-label>
-        <mat-select>
-          @for (departamento of departamentos; track departamento) {
-            <mat-option [value]="departamento.value">{{departamento.label}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+    <div class="header">
+      <p>Módulo de Administración de Usuarios</p>
+      <h5>Administración de Usuarios</h5>
+      <div class="header-container">
+        <div class="select-container">
+          <mat-form-field class="select-item">
+            <mat-label>Seleccione un Departamento</mat-label>
+            <mat-select [(ngModel)]="selectedDepartamento">
+              @for (departamento of departamentos; track departamento) {
+                <mat-option [value]="departamento.value">{{departamento.label}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
 
-      <mat-form-field class="select-item">
-        <mat-label>Seleccione un Cargo</mat-label>
-        <mat-select>
-          @for (cargo of cargos; track cargo) {
-            <mat-option [value]="cargo.value">{{cargo.label}}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+          <mat-form-field class="select-item">
+            <mat-label>Seleccione un Cargo</mat-label>
+            <mat-select [(ngModel)]="selectedCargo">
+              @for (cargo of cargos; track cargo) {
+                <mat-option [value]="cargo.value">{{cargo.label}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <button mat-raised-button class="right-button" (click)="openUserModal(false)">
+          Crear Nuevo Usuario
+        </button>
+      </div>
+
+      <div class="btns-container">
+        <button mat-raised-button (click)="onBuscar()">
+          Buscar
+        </button>
+        <button mat-raised-button (click)="onLimpiar()">
+          Limpiar Filtros
+        </button>
+      </div>
     </div>
 
-    <div class="button-container">
-      <button mat-raised-button class="right-button" (click)="openUserModal(false)">
-        Crear Nuevo Usuario
-      </button>
+    <mat-divider class="custom-divider"></mat-divider>
+    <div class="table-wrapper">
+      <table-component [departamentos]="departamentos" [cargos]="cargos" [usuarios]="usuarios" class="mat-elevation-z8"></table-component>
     </div>
-
-    <mat-divider></mat-divider>
-    <table-component></table-component>
+    <mat-paginator #paginator
+      class="demo-paginator"
+      (page)="handlePageEvent($event)"
+      [length]="length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      aria-label="Select page">
+    </mat-paginator>
   </div>
 </main>
 <router-outlet></router-outlet>

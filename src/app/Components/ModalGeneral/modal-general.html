@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>{{title}}
+  <mat-icon *ngIf="success" color="primary">check_circle</mat-icon>
+  <mat-icon *ngIf="!success" color="warn">cancel</mat-icon>
+</h2>
+<mat-dialog-content>{{ message }}</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+</mat-dialog-actions>

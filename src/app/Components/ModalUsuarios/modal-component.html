@@ -1,0 +1,89 @@
+<h2 mat-dialog-title>{{isEditing ? "Editar Usuario":"Crear Usuario"}}</h2>
+<mat-dialog-content class="dialog">
+  <form class="form-container" #userForm="ngForm">
+    <!-- Fila 1: Departamento y Cargo -->
+    <div class="form-row">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Departamento</mat-label>
+        <mat-select [(ngModel)]="user.id_departamento" [(value)]="user.id_departamento" name="departamento" required #departamento="ngModel">
+          @for (departamento of departamentos; track departamento) {
+            <mat-option [value]="departamento.value">{{departamento.label}}</mat-option>
+          }
+        </mat-select>
+        @if(departamento.invalid && departamento.touched){
+          <mat-error>Departamento es obligatorio.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Cargo</mat-label>
+        <mat-select [(ngModel)]="user.id_cargo" [(value)]="user.id_cargo" name="cargo" required #cargo="ngModel">
+          @for (cargo of cargos; track cargo) {
+            <mat-option [value]="cargo.value">{{cargo.label}}</mat-option>
+          }
+        </mat-select>
+        @if(cargo.invalid && cargo.touched){
+          <mat-error>Cargo es obligatorio.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Fila 2: Usuario y Email -->
+    <div class="form-row">
+      <mat-form-field class="form-field">
+        <mat-label>Usuario</mat-label>
+        <input matInput [(ngModel)]="user.usuario" name="usuario" required />
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Email</mat-label>
+        <input matInput [(ngModel)]="user.email" [formControl]="email" (blur)="updateErrorMessage()" required />
+        @if (email.invalid) {
+          <mat-error>{{errorMessage()}}</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Fila 3: Primer y Segundo Nombre -->
+    <div class="form-row">
+      <mat-form-field class="form-field">
+        <mat-label>Primer Nombre</mat-label>
+        <input matInput [(ngModel)]="user.primer_nombre" name="primer_nombre" required pattern="[A-Za-z\s]*" #primerNombre="ngModel"/>
+        @if(primerNombre.invalid && primerNombre.touched){
+          <mat-error>Solo se permiten letras.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Segundo Nombre</mat-label>
+        <input matInput [(ngModel)]="user.segundo_nombre" name="segundo_nombre" required pattern="[A-Za-z\s]*" #segundoNombre="ngModel"/>
+        @if(segundoNombre.invalid && segundoNombre.touched){
+          <mat-error>Solo se permiten letras.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+
+    <!-- Fila 4: Primer y Segundo Apellido -->
+    <div class="form-row">
+      <mat-form-field class="form-field">
+        <mat-label>Primer Apellido</mat-label>
+        <input matInput [(ngModel)]="user.primer_apellido" name="primer_apellido" required pattern="[A-Za-z\s]*" #primerApellido="ngModel"/>
+        @if(primerApellido.invalid && primerApellido.touched){
+          <mat-error>Solo se permiten letras.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="form-field">
+        <mat-label>Segundo Apellido</mat-label>
+        <input matInput [(ngModel)]="user.segundo_apellido" name="segundo_apellido" required pattern="[A-Za-z\s]*" #segundoApellido="ngModel"/>
+        @if(segundoApellido.invalid && segundoApellido.touched){
+          <mat-error>Solo se permiten letras.</mat-error>
+        }
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button (click)="onSubmit()" [disabled]="userForm.invalid">{{ isEditing ? 'Actualizar' : 'Registrar' }}</button>
+  <button mat-raised-button (click)="onCancel()">Cancelar</button>
+</mat-dialog-actions>

@@ -1,5 +1,14 @@
+th{
+  text-align: center;
+}
+
 button.mat-icon-button {
   margin-right: 8px;
+}
+
+.button-container {
+  display: flex;
+  gap: 8px; // Espacio entre botones
 }
 
 .edit-btn {

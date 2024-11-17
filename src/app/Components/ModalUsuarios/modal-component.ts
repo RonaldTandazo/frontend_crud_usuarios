@@ -1,7 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, signal } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogContent } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
-import { UsuariosServices } from '../services/usuarios.services';
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -13,19 +12,20 @@ import { MatDialogModule } from '@angular/material/dialog';
   selector: 'app-user-modal',
   templateUrl: './modal-component.html',
   styleUrls: ['./modal-component.scss'],
-  imports: [MatFormFieldModule, MatInputModule, MatDialogContent, FormsModule, MatSelectModule, MatButtonModule, MatDialogModule],
+  imports: [MatFormFieldModule, MatInputModule, MatDialogContent, FormsModule, MatSelectModule, MatButtonModule, MatDialogModule, ReactiveFormsModule],
 })
 
 export class UserModalComponent implements OnInit {
+  readonly email = new FormControl('', [Validators.required, Validators.email]);
   user: any = {};
   isEditing: boolean = false;
   departamentos: any[] = [];
   cargos: any[] = [];
+  errorMessage = signal('');
 
   constructor(
     public dialogRef: MatDialogRef<UserModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private usuarioService: UsuariosServices
   ) {}
 
   ngOnInit(): void {
@@ -38,22 +38,23 @@ export class UserModalComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if(!this.isEditing){
-      console.log("llega aqui la wbd")
-      this.usuarioService.store(this.user).subscribe(response => {
-        alert(response.data);
-      });
-    }else{
-      console.log("llega aca la wbd")
-      this.usuarioService.update(this.user.id, this.user).subscribe(response => {
-        alert(response.data);
-      });
-    }
-
     this.dialogRef.close();
+    if(this.isEditing){
+      this.data.update(this.user)
+    }else{
+      this.data.store(this.user)
+    }
   }
 
   onCancel(): void {
     this.dialogRef.close();
+  }
+
+  updateErrorMessage() {
+    if (this.email.hasError('required')) {
+      this.errorMessage.set('Debe ingresar un e-mail');
+    } else if (this.email.hasError('email')) {
+      this.errorMessage.set('El e-mail no es válido');
+    }
   }
 }

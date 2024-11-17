@@ -12,8 +12,8 @@ export class UsuariosServices {
 
   constructor(private http: HttpClient) {}
 
-  getData(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/usuarios/get_usuarios`);
+  getData(filters: any): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/usuarios/get_usuarios/${filters.id_departamento}/${filters.id_cargo}/${filters.page}/${filters.perPage}`);
   }
 
   store(userData: any): Observable<any> {
